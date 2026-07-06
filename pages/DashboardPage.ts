@@ -10,4 +10,8 @@ constructor (page: Page) {
 
   }  
 
+menuItem(view: string): Locator {
+  return this.page.locator(`[data-view="${view}"]`);
+}
+
 }
