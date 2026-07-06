@@ -5,14 +5,16 @@ export class LoginPage {
     readonly usernameInput: Locator;
     readonly passwordInput: Locator;
     readonly loginButton: Locator;
+    readonly errorMessage: Locator;
 
 constructor (page: Page) {
     this.page = page;
     this.usernameInput = page.getByLabel('Usuario');
     this.passwordInput = page.getByLabel('Contraseña');
     this.loginButton = page.getByRole('button', { name: 'Ingresar' });
-  }  
-
+    //// Ideally this element should have role="alert" for accessibility (screen reader announcement)
+    this.errorMessage = page.locator('#login-error'); 
+}
   
 async goto() {
   await this.page.goto('/');
