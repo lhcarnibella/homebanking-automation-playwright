@@ -1,4 +1,4 @@
-import type { Page, Locator } from '@playwright/test';
+import { expect, type Page, type Locator } from '@playwright/test';
 
 export class DashboardPage {
     readonly page: Page;
@@ -16,6 +16,7 @@ menuItem(view: string): Locator {
 }
 
 async getCheckingBalance(): Promise<number> {
+  await expect(this.checkingBalance).not.toHaveText('0.00');
   //textContent is used to extract the content as a string so numeric values can be compared before/after.
   const balanceText = await this.checkingBalance.textContent(); 
   //replace(/./g, '') — replaces all dots (thousands separators) with nothing, using the regex with the g (global) flag that we already mentioned. "499.999,00" → "499999,00"
@@ -25,3 +26,4 @@ async getCheckingBalance(): Promise<number> {
 }
 
 }
+
