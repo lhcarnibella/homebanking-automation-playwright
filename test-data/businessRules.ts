@@ -1,0 +1,2 @@
+
+export const MAX_TRANSFER_AMOUNT = 50000;

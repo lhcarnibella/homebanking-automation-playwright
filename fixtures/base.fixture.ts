@@ -1,7 +1,10 @@
 import { test as base } from '@playwright/test';
 import { LoginPage } from '../pages/LoginPage';
 import { DashboardPage } from '../pages/DashboardPage';
+import { users } from '../test-data/users';
+
 export { expect } from '@playwright/test';
+
 
 
 type MyFixtures = {
@@ -13,7 +16,7 @@ export const test = base.extend<MyFixtures>({
         const loginPage = new LoginPage(page);
         const dashboardPage = new DashboardPage(page);
         await loginPage.goto();
-        await loginPage.login('demo', 'demo123');
+        await loginPage.login(users.validUser.username, users.validUser.password);
         await use(dashboardPage);
     }
 });
