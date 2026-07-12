@@ -2,37 +2,47 @@ import { test, expect } from '../../fixtures/base.fixture';
 import { TransfersPage } from '../../pages/TransfersPage';
 import { TransferConfirmationModal } from '../../pages/TransferConfirmationModal';
 import { ToastNotification } from '../../pages/ToastNotification';
+import { messages } from '../../test-data/messages';
+import { accounts } from '../../test-data/accounts';
+import { MAX_TRANSFER_AMOUNT } from '../../test-data/businessRules';
+import { escapeRegExp } from '../../utils/regexHelpers'
+
 
 test('Should transfer money successfully between own accounts', async ({ dashboardPage, page }) => {
     await dashboardPage.menuItem('transfer').click();
     const transfersPage = new TransfersPage(page);
-    await transfersPage.transfer({'sourceAccount': 'ACC001', 'destinationAccount': 'ACC002', 'amount': '100'});
+    await transfersPage.transfer({sourceAccount: accounts.checkingAccount.accountCode, destinationAccount: accounts.savingsAccount.accountCode, amount: '100' });
     const transferConfirmationModal = new TransferConfirmationModal(page);
     await transferConfirmationModal.confirmButton.click();
     const toastNotification = new ToastNotification(page);
-    await expect(toastNotification.getMessage('Transferencia realizada exitosamente')).toBeVisible();
+    await expect(toastNotification.getMessage(messages.successTransfer)).toBeVisible();
 });
 
 test('Should display an error message when trying to transfer between the same accounts', async ({ dashboardPage, page }) => {
     await dashboardPage.menuItem('transfer').click();
     const transfersPage = new TransfersPage(page);
-    await transfersPage.transfer({'sourceAccount': 'ACC001', 'destinationAccount': 'ACC001', 'amount': '100'});
-    await expect(transfersPage.transferErrorMessage).toHaveText(/La cuenta origen y destino no pueden ser la misma/);
+    await transfersPage.transfer({sourceAccount: accounts.checkingAccount.accountCode, destinationAccount: accounts.checkingAccount.accountCode, 'amount': '100'});
+    await expect(transfersPage.transferErrorMessage).toHaveText(new RegExp(messages.sameAccounts));
+    
 });
 
 test('Should display an error message when trying to transfer more than the limit', async ({ dashboardPage, page }) => {
     await dashboardPage.menuItem('transfer').click();
     const transfersPage = new TransfersPage(page);
-    await transfersPage.transfer({'sourceAccount': 'ACC001', 'destinationAccount': 'ACC002', 'amount': '55000'});
+    const amountOutsideLimit = MAX_TRANSFER_AMOUNT + 1;
+    await transfersPage.transfer({sourceAccount: accounts.checkingAccount.accountCode, destinationAccount: accounts.savingsAccount.accountCode, amount: String(amountOutsideLimit)});
     const transferConfirmationModal = new TransferConfirmationModal(page);
     await transferConfirmationModal.confirmButton.click();
-    await expect(transfersPage.transferErrorMessage).toHaveText(/El monto máximo por transferencia es \$50\.000/);
+    await expect(transfersPage.transferErrorMessage).toHaveText(new RegExp(escapeRegExp(messages.amountMax)));
 });
+
+// TODO: add boundary test for exact MAX_TRANSFER_AMOUNT value
+
 
 test('Should display an error message when trying to transfer an empty amount', async ({ dashboardPage, page }) => {
     await dashboardPage.menuItem('transfer').click();
     const transfersPage = new TransfersPage(page);
-    await transfersPage.transfer({'sourceAccount': 'ACC001', 'destinationAccount': 'ACC002', 'amount': ''});
+    await transfersPage.transfer({sourceAccount: accounts.checkingAccount.accountCode, destinationAccount: accounts.savingsAccount.accountCode, 'amount': ''});
     const result = await transfersPage.transferAmount.evaluate((el: HTMLInputElement) => el.validity.valid);
     expect(result).toBe(false);
 });
