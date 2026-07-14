@@ -1,4 +1,3 @@
-
 type FixedTerm = {
   days: string;
   tna: number;
@@ -11,5 +10,4 @@ export const fixedTerms: Record<string, FixedTerm> = {
   ninetyDays: { days: '90', tna: 42, description: '90 días - 42% TNA' },
   oneEightyDays: { days: '180', tna: 45, description: '180 días - 45% TNA' },
   threeSixtyDays: { days: '360', tna: 50, description: '360 días - 50% TNA' },
-
 };

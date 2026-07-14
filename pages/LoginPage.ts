@@ -1,32 +1,28 @@
 import type { Page, Locator } from '@playwright/test';
 
 export class LoginPage {
-    readonly page: Page;
-    readonly usernameInput: Locator;
-    readonly passwordInput: Locator;
-    readonly loginButton: Locator;
-    readonly errorMessage: Locator;
+  readonly page: Page;
+  readonly usernameInput: Locator;
+  readonly passwordInput: Locator;
+  readonly loginButton: Locator;
+  readonly errorMessage: Locator;
 
-constructor (page: Page) {
+  constructor(page: Page) {
     this.page = page;
     this.usernameInput = page.getByLabel('Usuario');
     this.passwordInput = page.getByLabel('Contraseña');
     this.loginButton = page.getByRole('button', { name: 'Ingresar' });
     //// Ideally this element should have role="alert" for accessibility (screen reader announcement)
-    this.errorMessage = page.locator('#login-error'); 
-}
-  
-async goto() {
-  await this.page.goto('/');
+    this.errorMessage = page.locator('#login-error');
   }
 
-  
-async login(username: string, password: string) {
+  async goto() {
+    await this.page.goto('/');
+  }
+
+  async login(username: string, password: string) {
     await this.usernameInput.fill(username);
     await this.passwordInput.fill(password);
     await this.loginButton.click();
   }
-
-
-} 
-
+}
