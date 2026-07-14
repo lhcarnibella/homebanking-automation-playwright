@@ -7,7 +7,7 @@ import { accounts } from '../../test-data/accounts';
 import { MAX_TRANSFER_AMOUNT } from '../../test-data/businessRules';
 import { escapeRegExp } from '../../utils/regexHelpers';
 
-test('Should transfer money successfully between own accounts', async ({
+test('Should transfer money successfully between own accounts', { tag: ['@smoke', '@regression'] }, async ({
   dashboardPage,
   page,
 }) => {
@@ -26,7 +26,7 @@ test('Should transfer money successfully between own accounts', async ({
   ).toBeVisible();
 });
 
-test('Should display an error message when trying to transfer between the same accounts', async ({
+test('Should display an error message when trying to transfer between the same accounts', { tag: '@regression' }, async ({
   dashboardPage,
   page,
 }) => {
@@ -42,7 +42,7 @@ test('Should display an error message when trying to transfer between the same a
   );
 });
 
-test('Should display an error message when trying to transfer more than the limit', async ({
+test('Should display an error message when trying to transfer more than the limit', { tag: '@regression' }, async ({
   dashboardPage,
   page,
 }) => {
@@ -63,7 +63,7 @@ test('Should display an error message when trying to transfer more than the limi
 
 // TODO: add boundary test for exact MAX_TRANSFER_AMOUNT value
 
-test('Should display an error message when trying to transfer an empty amount', async ({
+test('Should display an error message when trying to transfer an empty amount', { tag: '@regression' }, async ({
   dashboardPage,
   page,
 }) => {

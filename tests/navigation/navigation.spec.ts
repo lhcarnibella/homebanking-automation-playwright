@@ -2,7 +2,7 @@ import { test, expect } from '../../fixtures/base.fixture';
 import { TransfersPage } from '../../pages/TransfersPage';
 import { FixedTermsPage } from '../../pages/FixedTermsPage';
 
-test.describe('Navigation', () => {
+test.describe('Navigation', { tag: '@regression' }, () => {
   const menuItems = [
     { view: 'transfer', label: 'Transferencias', PageObject: TransfersPage },
     {
@@ -13,7 +13,7 @@ test.describe('Navigation', () => {
   ];
 
   for (const item of menuItems) {
-    test(`Should navigate to ${item.label} section`, async ({
+    test(`Should navigate to ${item.label} section`, { tag: '@regression' }, async ({
       dashboardPage,
       page,
     }) => {

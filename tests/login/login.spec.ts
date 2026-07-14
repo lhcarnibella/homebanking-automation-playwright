@@ -4,7 +4,7 @@ import { DashboardPage } from '../../pages/DashboardPage';
 import { users } from '../../test-data/users';
 import { messages } from '../../test-data/messages';
 
-test('Should login successfully with valid credentials', async ({ page }) => {
+test('Should login successfully with valid credentials', { tag: ['@smoke', '@regression'] }, async ({ page }) => {
   const loginPage = new LoginPage(page);
   const dashboardPage = new DashboardPage(page);
   await loginPage.goto();
@@ -12,7 +12,7 @@ test('Should login successfully with valid credentials', async ({ page }) => {
   await expect(dashboardPage.panelHeading).toBeVisible();
 });
 
-test('Should display a message indicating invalid credentials', async ({
+test('Should display a message indicating invalid credentials', { tag: '@regression' }, async ({
   page,
 }) => {
   const loginPage = new LoginPage(page);
@@ -23,7 +23,7 @@ test('Should display a message indicating invalid credentials', async ({
   );
 });
 
-test('should display an account locked message', async ({ page }) => {
+test('should display an account locked message', { tag: '@regression' }, async ({ page }) => {
   const loginPage = new LoginPage(page);
   await loginPage.goto();
   await loginPage.login(users.lockedUser.username, users.lockedUser.password);

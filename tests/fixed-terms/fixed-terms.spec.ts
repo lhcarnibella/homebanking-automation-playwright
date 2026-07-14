@@ -8,7 +8,8 @@ import { accounts } from '../../test-data/accounts';
 import { fixedTerms } from '../../test-data/fixedTerms';
 import { parseArgentineCurrency } from '../../utils/currencyHelpers';
 
-test('Should deposit created successfully', async ({ dashboardPage, page }) => {
+
+test('Should deposit created successfully', { tag: ['@smoke', '@regression'] }, async ({ dashboardPage, page }) => {
   await dashboardPage.menuItem('fixed-deposit').click();
   const fixedTermsPage = new FixedTermsPage(page);
   const amount = '15000';
@@ -31,7 +32,8 @@ test('Should deposit created successfully', async ({ dashboardPage, page }) => {
   ).toBeVisible();
 });
 
-test('Should deposit cancelled successfully', async ({
+
+test('Should deposit cancelled successfully', { tag: '@regression' }, async ({
   dashboardPage,
   page,
 }) => {
