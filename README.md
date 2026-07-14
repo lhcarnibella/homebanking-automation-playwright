@@ -76,7 +76,7 @@ npx playwright test --grep @smoke
 
 **Dashboard balance widget — timing issue.** The account balance widget on the main dashboard displays a stale cached value momentarily before recalculating after a transaction. This is inconsistent enough (confirmed via multiple debugging strategies: `toBeVisible`, text-change waits, `networkidle`) that direct balance comparison was deemed unreliable for automated assertions. As a workaround, transaction success is verified via toast notifications instead, which reflect the operation result immediately and consistently. This tradeoff is documented here rather than hidden, since it's a real limitation of the target application, not of the framework.
 
-**No dedicated API testing.** This application is a fully client-side SPA with no exposed backend API to test independently. API testing practices are demonstrated in a separate, dedicated repository (to be added).
+**No dedicated API testing.** This application's UI is a fully client-side SPA, but the same course provides a separate mock backend API. API testing practices are demonstrated in a dedicated repository: [homebanking-api-automation-playwright](https://github.com/lhcarnibella/homebanking-api-automation-playwright).
 
 ### CI/CD
 
@@ -158,7 +158,9 @@ npx playwright test --grep @smoke
 
 **Widget de saldo del Dashboard — problema de timing.** El widget de saldo de cuenta en el panel principal muestra momentáneamente un valor cacheado desactualizado antes de recalcularse tras una transacción. Esto es lo suficientemente inconsistente (confirmado mediante múltiples estrategias de debugging: `toBeVisible`, espera de cambio de texto, `networkidle`) como para que la comparación directa de saldos se considerara poco confiable para aserciones automatizadas. Como solución alternativa, el éxito de la transacción se verifica mediante notificaciones toast, que reflejan el resultado de la operación de forma inmediata y consistente. Este tradeoff se documenta acá en vez de ocultarse, ya que es una limitación real de la aplicación objetivo, no del framework.
 
-**Sin testing de API dedicado.** Esta aplicación es una SPA completamente del lado del cliente, sin API de backend expuesta para testear de forma independiente. Las prácticas de API testing se demuestran en un repositorio separado y dedicado (a agregar).
+**Sin testing de API dedicado.** La UI de esta aplicación es una SPA completamente del lado del cliente, pero el mismo curso provee una API mock de backend separada. Las prácticas de API testing se demuestran en un repositorio dedicado: [homebanking-api-automation-playwright](https://github.com/lhcarnibella/homebanking-api-automation-playwright).
+
+
 
 ### CI/CD
 
