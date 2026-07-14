@@ -5,5 +5,6 @@ export const messages: Record<string, string> = {
     successTransfer: 'Transferencia realizada exitosamente',
     sameAccounts: 'La cuenta origen y destino no pueden ser la misma',
     amountMax: 'El monto máximo por transferencia es $50.000',
-    successDeposit:'Plazo fijo creado exitosamente'
+    successDeposit:'Plazo fijo creado exitosamente',
+    cancelledDeposit: 'Plazo fijo cancelado exitosamente. El dinero se acreditó en tu cuenta.',
 };
